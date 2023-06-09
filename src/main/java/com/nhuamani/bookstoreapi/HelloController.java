@@ -16,4 +16,14 @@ public class HelloController {
     Book createBook(@RequestBody Book book) {
         return book;
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/books/{id}")
+    Book getBook(@PathVariable Integer id) {
+        Book book = new Book();
+        book.setId(id);
+        book.setTitle("Python");
+        book.setPrice(56f);
+
+        return book;
+    }
 }
