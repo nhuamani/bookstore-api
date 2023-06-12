@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
 public class HelloController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
@@ -18,7 +19,7 @@ public class HelloController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/books/{id}")
-    Book getBook(@PathVariable Integer id) {
+    public Book getBook(@PathVariable Integer id) {
         Book book = new Book();
         book.setId(id);
         book.setTitle("Python");
