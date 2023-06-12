@@ -7,18 +7,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class HelloController {
 
-    @RequestMapping(method = RequestMethod.GET, path = "/")
+//    @RequestMapping(method = RequestMethod.GET, path = "/")
+    @GetMapping("/")
     public String index(@RequestParam(defaultValue = "Watson") String name) {
         return "Hello " + name + "!!!";
     }
 
     @ResponseStatus(value = HttpStatus.CREATED)
-    @RequestMapping(method = RequestMethod.POST, path = "/books")
+    @PostMapping("/books")
     Book createBook(@RequestBody Book book) {
         return book;
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/books/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/books/{id}")
     public Book getBook(@PathVariable Integer id) {
         Book book = new Book();
         book.setId(id);
