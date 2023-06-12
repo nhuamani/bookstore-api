@@ -1,4 +1,4 @@
-package com.nhuamani.bookstoreapi;
+package com.nhuamani.bookstoreapi.models;
 
 public class Book {
     private Integer id;

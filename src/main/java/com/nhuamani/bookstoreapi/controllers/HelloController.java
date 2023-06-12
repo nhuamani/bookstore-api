@@ -1,5 +1,6 @@
-package com.nhuamani.bookstoreapi;
+package com.nhuamani.bookstoreapi.controllers;
 
+import com.nhuamani.bookstoreapi.models.Book;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
