@@ -1,13 +1,16 @@
 package com.nhuamani.bookstoreapi.controllers;
 
 import com.nhuamani.bookstoreapi.models.Book;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-// TODO 2. convertir a un controlador rest
-// TODO 3. mapear la ruta "/api/books"
+@RestController
+@RequestMapping("/api/books")
 public class BookController {
 
     public static List<Book> bookList = new ArrayList<>();
@@ -17,7 +20,7 @@ public class BookController {
      * Retorna el status OK: 200
      * Ej.: GET http://localhost:9090/api/books
      */
-    // TODO 4. mapear la ruta ""
+    @GetMapping("")
     List<Book> list() {
         return bookList;
     }
@@ -27,8 +30,8 @@ public class BookController {
      * Retorna el status OK: 200
      * Ej.: GET http://localhost:9090/api/books/1
      */
-    // TODO 5. mapear la ruta "/{id}"
-    Book get(/* TODO 6. capturar la variable "id" */ Integer id) {
+    @GetMapping("/{id}")
+    Book get(@PathVariable Integer id) {
         return bookList
                 .stream()
                 .filter(l -> l.getId().equals(id))
@@ -43,9 +46,9 @@ public class BookController {
      * Retorna el status CREATED: 201
      * Ej.: POST http://localhost:9090/api/books
      */
-    // TODO 14. Cambiar el status code de respuesta a 201
-    // TODO 7. mapear la ruta ""
-    Book create(/* TODO 8. capturar el cuerpo de la solicitud */ Book book) {
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    Book create(@RequestBody Book book) {
         // asigna los datos básicos del libro y que deben ser establecidos
         // solo por el programa
         book.setId(new Random().nextInt(256));
@@ -60,9 +63,8 @@ public class BookController {
      * Retorna el status OK: 200.
      * Ej.: PUT http://localhost:9090/api/books/1
      */
-    // TODO 9. mapear la ruta "/{id}"
-    Book update(/* TODO 10. capturar la variable "id" */ Integer id,
-            /* TODO 11. capturar el cuerpo de la solicitud */ Book bookForm) {
+    @PutMapping("/{id}")
+    Book update(@PathVariable Integer id, @RequestBody Book bookForm) {
         Book bookFromDb = bookList
                 .stream()
                 .filter(l -> l.getId().equals(id))
@@ -82,9 +84,9 @@ public class BookController {
      * Retorna el status NO_CONTENT: 204
      * Ej.: DELETE http://localhost:9090/api/books/1
      */
-    // TODO 15. cambiar el status code de respuesta a 204
-    // TODO 12. mapear la ruta "/{id}"
-    void delete(/* TODO 13. capturar la variable "id" */ Integer id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    void delete(@PathVariable Integer id) {
         bookList.removeIf(l -> l.getId().equals(id));
     }
 
