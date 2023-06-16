@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/books")
@@ -88,6 +90,19 @@ public class BookController {
     @DeleteMapping("/{id}")
     void delete(@PathVariable Integer id) {
         bookList.removeIf(l -> l.getId().equals(id));
+    }
+
+    @GetMapping("/search")
+    Book search(@RequestParam(defaultValue = "q") String q) {
+        // https://youtu.be/laQEQYygbmI
+        // int id;
+        //bookList.forEach(bo -> System.out.println(bo.getTitle().toLowerCase().equals(q.toLowerCase())));
+        return bookList
+                .stream()
+                .filter(l -> l.getTitle().toLowerCase().equals(q.toLowerCase()))
+                .findFirst()
+                .orElse(null);
+
     }
 
 }
