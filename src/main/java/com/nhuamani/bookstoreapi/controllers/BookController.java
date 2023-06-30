@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -93,16 +92,11 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    Book search(@RequestParam(defaultValue = "q") String q) {
-        // https://youtu.be/laQEQYygbmI
-        // int id;
-        //bookList.forEach(bo -> System.out.println(bo.getTitle().toLowerCase().equals(q.toLowerCase())));
+    List<Book> search(@RequestParam(defaultValue = "q") String q) {
         return bookList
                 .stream()
-                .filter(l -> l.getTitle().toLowerCase().equals(q.toLowerCase()))
-                .findFirst()
-                .orElse(null);
-
+                .filter(l -> l.getTitle().toLowerCase().contains(q.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
 }
